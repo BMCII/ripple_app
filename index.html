@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.js"></script>
+  <script src="ripple-latest-min.js"></script>
+  <script src="payment.js"></script>
+  <script>
+    console.log(ripple);
+    var api = new ripple.RippleAPI({server:'wss://s1.ripple.com/'});
+    api.connect().then(function() {
+        return api.getServerInfo();
+    }).then(function(server_info) {
+    document.body.innerHTML += "<p>Connected to rippled server!</p>" +
+"      <table>" +
+"        <tr><th>Version</th>" +
+"          <td>" + server_info.buildVersion + "</td></tr>" +
+"        <tr><th>Ledgers available</th>" +
+"          <td>" + server_info.completeLedgers + "</td></tr>" +
+"        <tr><th>hostID</th>" +
+"          <td>" + server_info.hostID + "</td></tr>" +
+"        <tr><th>Most Recent Validated Ledger Seq.</th>" +
+"          <td>" + server_info.validatedLedger.ledgerVersion + "</td></tr>" +
+"        <tr><th>Most Recent Validated Ledger Hash</th>" +
+"          <td>" + server_info.validatedLedger.hash + "</td></tr>" +
+"        <tr><th>Seconds since last ledger validated</th>" +
+"          <td>" + server_info.validatedLedger.age + "</td></tr>" +
+"      </table>" +
+
+"<br>" +
+
+"      <table>" +
+"        <tr><th>Sender Address</th>" +
+"          <td>" + "<input id='sender' type='text' name='sender'>" + "</td></tr>" +
+"        <tr><th>Secret</th>" +
+"          <td>" + "<input id='secret' type='text' id='secret' name='secret'>" + "</td></tr>" +
+"        <tr><th>Destination Address</th>" +
+"          <td>" + "<input id='destination' type='text' Destination=''>" + "</td></tr>" +
+"        <tr><th>Amount</th>" +
+"          <td>" + "<input id='amount' type='text' amount=''>" + "</td></tr>" +
+"        <tr><th>Currency</th>" +
+"          <td>" + "XRP" + "</td></tr>" +
+"      </table>" +
+
+"<br>" +
+
+"<input id='submit' type='button' onclick='runTransaction()' value='submit'>"
+
+;
+    });
+  </script>
+  <style type="text/css">
+    td, th { border: 1px solid black; padding: 5px; }
+    table { border-collapse: collapse; }
+  </style>
+</head>
+<body></body>
+</html>
